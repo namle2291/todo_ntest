@@ -1288,10 +1288,23 @@ class Items_model extends CI_Model
     }
     public function search_items($search_key)
     {
+        $user_id = $this->session->userdata('user_id');
 
-        $sql = "SELECT * FROM items WHERE title LIKE '%$search_key%' and owners like '%" . $this->session->userdata('user_id') . "%' and parent_id >= 0 and type_id in (6,30,31,32) and deleted_at IS NULL";
+        $this->db->select("projects.*, folder.id as folder_id");
+        $this->db->from("items as projects");
+        $this->db->join("items as sub_folder", 'projects.parent_id = sub_folder.id');
+        $this->db->join("items as folder", 'sub_folder.parent_id = folder.id');
+        $this->db->like('projects.title', $search_key, 'both');
+        $this->db->where("projects.parent_id >=", "0");
+        $this->db->where_in("projects.type_id", [6, 30, 31, 32]);
+        $this->db->where('find_in_set("' . $user_id . '", projects.owners) <> 0');
+        $this->db->where("projects.deleted_at", null);
 
-        $query = $this->db->query($sql);
+        // $sql = "SELECT * FROM items WHERE title LIKE '%$search_key%' and owners like '%" . 
+        // $this->session->userdata('user_id') . "%' 
+        // and parent_id >= 0 and type_id in (6,30,31,32) and deleted_at IS NULL";
+
+        $query = $this->db->get();
 
         return $query->result_object();
     }

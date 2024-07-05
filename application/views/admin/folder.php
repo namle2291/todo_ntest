@@ -14,14 +14,14 @@ $userId = $this->session->userdata('user_id');
 
 <?php foreach ($folders as $folder) : ?>
     <div class="col-12 col-md-8 col-lg-7 d-flex align-items-center pt-2">
-        <span class="btn-collapse" style="font-size: 14px;" data-bs-toggle="collapse" href="#collapseItemsGeneral" aria-controls="collapseItemsGeneral">
+        <span class="btn-collapse" style="font-size: 14px;" data-bs-toggle="collapse" href="#collapseItemsGeneral-<?= $folder->id ?>" aria-controls="collapseItemsGeneral-<?= $folder->id ?>">
             <i class="fa fa-chevron-down text-primary" aria-hidden="true"></i>
         </span>
         <h4 class="m-2 text-primary"><?= $folder->title ?></h4>
     </div>
 
     <?php $projects = $this->Items_model->get_project_by_user($folder->id, $userId); ?>
-    <div class="row m-0 p-0 pt-3 collapse show" id="collapseItemsGeneral">
+    <div class="row m-0 p-0 pt-3 collapse show" id="collapseItemsGeneral-<?= $folder->id ?>">
         <?php foreach ($projects as $item) : ?>
             <?php if (!$item->is_private && !$item->is_archived) : ?>
                 <?php if ($item->type_id == 7) : ?>
