@@ -17,7 +17,7 @@ class Form extends CI_Controller
             redirect('/login');
         }
     }
-    public function view($id)
+    public function view($folder_id,$id)
     {
         if ($this->check_is_owner($id)) {
             $data['project'] = $this->Items_model->find_by_id($id);
