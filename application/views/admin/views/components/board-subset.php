@@ -1,5 +1,8 @@
+<?php 
+$folder_id = isset($folder_id) ? $folder_id : ""
+ ?>
 <li class="board-subset-item" data-subset-id="<?= $board_subset->id ?>" data-subset-title="<?= $board_subset->title ?>">
-    <a class="w-100 text-dark text-truncate" href="<?= base_url($board_subset->title . "/" . "view/" . $project_id) ?>">
+    <a class="w-100 text-dark text-truncate" href="<?= base_url($board_subset->title . "/" . "view/"  . $folder_id . "/"  . $project_id) ?>">
         <?= ucfirst($board_subset->title) ?>
     </a>
     <span class="board-subset-menu-hover" data-bs-toggle="dropdown" aria-expanded="false" aria-hidden="true">

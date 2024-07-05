@@ -16,7 +16,7 @@ class Calendar extends CI_Controller
         }
     }
 
-    public function view($id)
+    public function view($folder_id,$id)
     {
         if ($this->check_is_owner($id)) {
             $data['project'] = $this->items_model->find_by_id($id);

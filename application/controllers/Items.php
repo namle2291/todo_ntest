@@ -138,6 +138,7 @@ class Items extends CI_Controller
                     break;
                 case 29:
                     $data['board_subset']   = $item;
+                    $data['folder_id'] =  $data_add['folder_id'];
                     $data['project_id']     = $item->parent_id;
                     $html = $this->load->view("admin/views/components/board-subset", $data, true);
                     echo json_encode(array('success' => true, 'data' => $html));

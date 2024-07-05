@@ -44,7 +44,10 @@
         background: #bbbbbb;
     }
 </style>
-
+<?php
+$folder_id_url = $this->uri->segment(3);
+$project_id_url = $this->uri->segment(4);
+?>
 <!-- Html -->
 <div class="row pt-3" style="padding-left: 37px !important;">
     <div class="col-md-10">
@@ -54,7 +57,7 @@
         <?php $this->load->view("templates/admin/logs", ['project' => $project]) ?>
     </div>
     <div class="mb-3">
-        <?php $this->load->view("templates/admin/board-toolbar", ['project_id' => $project->id, 'parent_id' => $project->parent_id]) ?>
+        <?php $this->load->view("templates/admin/board-toolbar", ['project_id' => $project->id, 'parent_id' => $project->parent_id, 'folder_id_url' => $folder_id_url]) ?>
     </div>
 
     <div class="row" id="gantt" style='width:100%; height:80vh'></div>
