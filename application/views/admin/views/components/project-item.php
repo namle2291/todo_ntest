@@ -1,3 +1,4 @@
+<?php $is_superadmin = isset($is_superadmin) ? $is_superadmin : "";?>
 <li class="list-project-item" data-project-id="<?= $item->id ?>" <?= !$is_superadmin && $item->is_private ? "hidden" : "" ?>>
     <div class="list-project-link">
         <?php if ($item->type_id == 32) : ?>

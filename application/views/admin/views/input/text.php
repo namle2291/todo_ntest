@@ -9,6 +9,8 @@ $placeholder = isset($placeholder) ? $placeholder : "";
 $showBtnClear = isset($showBtnClear) ? $showBtnClear : false;
 $disabled = isset($disabled) ? $disabled : null;
 $showMenu = isset($showMenu) ? $showMenu : false;
+$type = isset($type) ? $type : "";
+
 ?>
 
 <div class="input-group input-group-table">

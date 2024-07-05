@@ -37,7 +37,7 @@ $showMenu = isset($showMenu) ? $showMenu : false;
 
     <?php endif; ?>
 
-    <input type="text" placeholder="<?= $placeholder ?>" data-meta-id="<?= $meta_id ?>" data-id="<?= $data_id ?>" <?php echo $disabled ? "disabled" : "" ?> name="<?= $key ?>" value="<?= $value; ?>" class="form-control input-table text-truncate" />
+    <input type="text" placeholder="<?= $placeholder ?>" data-meta-id="<?= $meta_id ?>" data-id="<?= $data_id ?>" <?php echo $dedisabl ? "disabled" : "" ?> name="<?= $key ?>" value="<?= $value; ?>" class="form-control input-table text-truncate" />
     <span class="btn-addon bg-blue">
         <a href="<?= $value; ?>" target="_blank"><i class="fa fa-link"></i></a>
     </span>

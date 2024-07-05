@@ -390,7 +390,7 @@
                                         <?php if (count($group_owners) > 3) : ?>
                                             <div class="d-flex align-items-center justify-content-center" style="width: 35px; height: 35px; border-radius:50%; background-color: #B9B9B9;">
                                                 <strong>
-                                                    <?= "+" . (count($group_owners) - 3) ?>
+                                                    <?= "+" . count($group_owners) - 3 ?>
                                                 </strong>
                                             </div>
                                         <?php endif; ?>
@@ -557,13 +557,11 @@
                                     <!--- Toản thêm 15/06/2024 !-->
 
                                     <!-- link zalo -->
-                                    <?php if (!empty($meta->value)) : ?>
-                                        <a style="line-height: 26px;" class="btn btn-sm btn-outline-secondary btn-add-zalo" href="<?= $meta->value ?>" data-group-id="<?= $group->id ?>" data-meta-id="<?= $meta->id ?>" target="_blank" <?= !empty($meta->value) ? "" : "hidden" ?>>
-                                            <span class="d-flex align-items-center gap-2"><i class="fa fa-link"></i>
-                                                <span>Nhóm zalo</span>
-                                            </span>
-                                        </a>
-                                    <?php endif; ?>
+                                    <a style="line-height: 26px;" class="btn btn-sm btn-outline-secondary btn-add-zalo" href="<?= $meta->value ?>" data-group-id="<?= $group->id ?>" data-meta-id="<?= $meta->id ?>" target="_blank" <?= !empty($meta->value) ? "" : "hidden" ?>>
+                                        <span class="d-flex align-items-center gap-2"><i class="fa fa-link"></i>
+                                            <span>Nhóm zalo</span>
+                                        </span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -825,30 +823,30 @@
                                     ['chuahoanthanh', 'danger']
                                 ];
                                 ?>
-                                <?php if (isset($tasks[0])) : ?>
-                                    <?php foreach ($this->Items_model->get_all_meta($tasks[0]->id) as $key => $meta) : ?>
-                                        <?php $field = $this->Items_model->get_field_by_key($meta->key); ?>
 
-                                        <?php if ($field->display == 1) : ?>
-                                            <div class="task-meta" style="width: <?= $field->width ? $field->width : '' ?>;" data-field-id="<?= $field->id ?>">
-                                                <?php if ($field->type_html == "status") : ?>
-                                                    <div class="progress-group rounded-2 overflow-hidden d-flex" data-group-id="<?= $group->id ?>">
-                                                        <?php foreach ($status as $st) : ?>
-                                                            <?php $percent = $this->Items_model->get_percent($group->id, $field->key, $st[0]); ?>
-                                                            <?php if ($percent[0] != "0") : ?>
-                                                                <div class="progress bg-<?= $st[1]; ?>" data-bs-toggle="tooltip" data-placement="top" data-bs-title="<?= $percent[1]  ?>/<?= count($tasks) ?>" role="progressbar" aria-label="Tien do" aria-valuenow="<?= ceil($percent[0]); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= ceil($percent[0]); ?>%; border-radius: 0 !important;">
-                                                                    <div class="progress-bar"></div>
-                                                                </div>
-                                                            <?php endif; ?>
-                                                        <?php endforeach; ?>
-                                                    </div>
-                                                <?php else : ?>
-                                                    <div style="width: <?= $field->width; ?>"></div>
-                                                <?php endif; ?>
-                                            </div>
-                                        <?php endif; ?>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
+                                <?php foreach ($this->Items_model->get_all_meta($tasks[0]->id) as $key => $meta) : ?>
+                                    <?php $field = $this->Items_model->get_field_by_key($meta->key); ?>
+
+                                    <?php if ($field->display == 1) : ?>
+                                        <div class="task-meta" style="width: <?= $field->width ? $field->width : '' ?>;" data-field-id="<?= $field->id ?>">
+                                            <?php if ($field->type_html == "status") : ?>
+                                                <div class="progress-group rounded-2 overflow-hidden d-flex" data-group-id="<?= $group->id ?>">
+                                                    <?php foreach ($status as $st) : ?>
+                                                        <?php $percent = $this->Items_model->get_percent($group->id, $field->key, $st[0]); ?>
+                                                        <?php if ($percent[0] != "0") : ?>
+                                                            <div class="progress bg-<?= $st[1]; ?>" data-bs-toggle="tooltip" data-placement="top" data-bs-title="<?= $percent[1]  ?>/<?= count($tasks) ?>" role="progressbar" aria-label="Tien do" aria-valuenow="<?= ceil($percent[0]); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= ceil($percent[0]); ?>%; border-radius: 0 !important;">
+                                                                <div class="progress-bar"></div>
+                                                            </div>
+                                                        <?php endif; ?>
+                                                    <?php endforeach; ?>
+                                                </div>
+                                            <?php else : ?>
+                                                <div style="width: <?= $field->width; ?>"></div>
+                                            <?php endif; ?>
+                                        </div>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+
                             </div>
                         </div>
                     </div>

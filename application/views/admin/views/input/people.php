@@ -31,7 +31,7 @@ $users_of_meta = $this->User_model->find_in_set($value);
 
             <?php if (count($users_of_meta) > 3) : ?>
                 <div class="extra-files-count" data-bs-toggle="dropdown" aria-expanded="false">
-                    <span> <?= "+" . (count($users_of_meta) - 3) ?> </span>
+                    <span> <?= "+" . count($users_of_meta) - 3 ?> </span>
                 </div>
             <?php endif; ?>
 

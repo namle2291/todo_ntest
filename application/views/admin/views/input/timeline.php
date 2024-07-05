@@ -8,9 +8,7 @@ $width = isset($width) ? $width : "";
 <?php
 
 if (!empty($value) && trim($value) != "") {
-    
     $timeline = $value;
-    
     $dateNow = new DateTime(date("d-m-Y"));
 
     $startTime = explode("-", $value)[0];
@@ -27,7 +25,7 @@ if (!empty($value) && trim($value) != "") {
 ?>
 
 <div class="input-group input-group-table">
-    <div class="timeline_meta w-100 h-100 text-center" style="font-size: 12px;" data-meta-id="<?= $meta_id ?>" data-value="<?= isset($timeline) ? $timeline : "" ?>" data-test="<?= $value ?>">
+    <div class="timeline_meta w-100 h-100 text-center" style="font-size: 12px;" data-meta-id="<?= $meta_id ?>" data-value="<?= $timeline ?>" data-test="<?= $value ?>">
         <?php if (!empty($value) || trim($value) != '') : ?>
             <div class="<?= $value <= 3 || $value == 0 ? "bg-danger" : "bg-success" ?>  text-light d-flex align-items-center justify-content-center rounded-2 w-100 h-100" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="<?= $value ?> ngày">
                 <span style="position: absolute; left: 10px; transform: translateY(-50%); top: 50%;">

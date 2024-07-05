@@ -167,8 +167,8 @@ class Items extends CI_Controller
                     echo json_encode(array('success' => true, 'data' => $html));
                     break;
                 case self::TABLE_ID:
-                    $data['item'] = $item;
-                    $html = $this->load->view("admin/views/components/project-item", $data, true);
+                    $data['personalProject'] = $item;
+                    $html = $this->load->view("admin/views/components/project-personal-item", $data, true);
                     echo json_encode(array('success' => true, 'data' => $html, 'parent_id' => (int)$item->parent_id));
                     break;
                 default:

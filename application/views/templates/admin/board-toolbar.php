@@ -77,6 +77,7 @@
 
 <?php
 $tab = $this->uri->segment(1);
+$parent_id = isset($parent_id) ? $parent_id : "";
 ?>
 
 <div class="board_toolbar">
