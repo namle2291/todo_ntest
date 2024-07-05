@@ -280,7 +280,7 @@
                                         <div class="row">
                                             <?php foreach ($html_types as $html_type) : ?>
                                                 <div class="col-6">
-                                                    <li class="fiels_list_item dropdown-item" data-value="<?= $html_type->value ?>" data-type-html="<?= $html_type->title ?>">
+                                                    <li class="fiels_list_item dropdown-item" data-group-id="<?= $project->id; ?>" data-value="<?= $html_type->value ?>" data-type-html="<?= $html_type->title ?>">
                                                         <div class="fiels_list_item_image rounded">
                                                             <img src="<?= base_url($html_type->icon); ?>" class="fiels_list_item_icon bg-<?= $html_type->color ?>" width="35px" height="35px" />
                                                         </div>
@@ -797,23 +797,22 @@ $type_html = base_url() . "input/gettypehtml";
                             $(field_html).insertBefore(".btn-add-fields");
                         }
 
-                        data_html.map(meta => {
+
+                        console.log(data_html);
+
+                        data_html.map((meta, index) => {
 
                             const task_item = $(`.task-item[data-item-id='${meta.items_id}']`);
                             const meta_last = task_item.find(".task-meta:last");
 
+                            console.log(meta_last);
+                            
                             if (meta_last.length > 0) {
-
-                                console.log(meta)
-
                                 $(meta.meta_html).insertAfter(meta_last);
-                                console.log("insert")
+
                             } else {
                                 task_item.append(meta.meta_html);
-                                console.log("append")
                             }
-
-
                         })
 
                         $(".task-item-header").css("width", "fit-content");
@@ -971,6 +970,8 @@ $type_html = base_url() . "input/gettypehtml";
                 case "file":
                     const files = $(this)[0].files;
                     const key = $(this).attr("name");
+                    const key_code = $(this).attr("data-group-key-code");
+                    const group_id = $(this).attr("data-group-id");
                     const item_id = <?= $project->id ?>;
                     const file_meta_input = $(this).parent().find(".file_meta_input");
 
@@ -981,11 +982,14 @@ $type_html = base_url() . "input/gettypehtml";
                     formData.append("key", key);
                     formData.append("item_id", item_id);
                     formData.append("meta_id", meta_id);
+                    formData.append("project_id", "<?= $project->id ?>");
+                    formData.append("key_code", key_code);
+                    formData.append("group_id", group_id);
 
                     for (let i = 0; i < files.length; i++) {
 
-                        if (files[i].size / 1024 > 2048) {
-                            toastr.warning("File không được lớn hơn 2MB");
+                        if (files[i].size / 1024 > 10240) {
+                            toastr.warning("File không được lớn hơn 10MB");
                             return;
                         }
 
@@ -1004,63 +1008,9 @@ $type_html = base_url() . "input/gettypehtml";
                         success: function(response) {
 
                             if (response.success) {
-                                if (file_meta_input.find('label').length > 0) {
-                                    file_meta_input.empty();
 
-                                    file_meta_input.html('<span class="btn-add-file" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-plus"></i></span><div class = "file_meta_list"></div>');
+                                $(`.file_meta_input[data-meta-id='${meta_id}']`).html(response?.file_html);
 
-                                }
-
-                                const file_meta_list = file_meta_input.find(".file_meta_list");
-
-                                file_meta_list.empty();
-
-                                response.data.map(function(e, key) {
-
-                                    if (key < 3) {
-                                        html_file += '<div class="file_image_field file-image" data-file-type="' + e.type + '" data-file-title="' + e.title + '" data-file-path="' + url + e.path + '">';
-
-                                        if ("pdf|doc|docx|xls|xlsx|ppt|pptx|rar|zip".split("|").includes(e.type)) {
-
-                                            html_file += '<img src="' + url + '/assets/images/' + e.type + '.svg' + '" alt="file_icon">';
-
-                                        } else {
-
-                                            html_file += '<img src="' + url + e.path + '" alt="file_icon">';
-                                        }
-
-                                        html_file += '</div></div>';
-
-                                    } else if (key == (response.data.length - 1)) {
-                                        html_file += '<div class="extra-files-count" data-bs-toggle="dropdown" aria-expanded="false"> <span >+' +
-                                            (response.data.length - 3) +
-                                            ' < /span> </div>';
-                                    }
-                                });
-
-                                html_file += '<ul class="dropdown-menu shadow" style="width: 290px; padding: 16px;"><div class="row">';
-
-                                response.data.map(function(e, key) {
-                                    html_file += '<div class="col-12 mb-2"> <div class="row">';
-                                    html_file += '<div class="col-2"> <div class="meta_item_file_image">';
-
-                                    if ("pdf|doc|docx|xls|xlsx|ppt|pptx|rar|zip".split("|").includes(e.type)) {
-                                        html_file += '<img src="' + url + '/assets/images/' + e.type + '.svg' + '" alt="file_icon">';
-                                    } else {
-                                        html_file += '<img src="' + url + e.path + '" alt="file_icon">';
-                                    }
-                                    html_file += "</div></div>";
-
-                                    html_file += "<div class='col-10 d-flex align-items-center justify-content-between'>";
-
-                                    html_file += '<span class="text-truncate">' + e.title + '</span>';
-                                    html_file += '<div class="btn-clear-file" data-file-id="' + e.id + '" data-meta-id="' + meta_id + '"><i class="fa fa-times"></i></div>';
-                                    html_file += "</div>";
-                                });
-
-                                html_file += '</div><div class = "mt-3"><label style = "font-size: 14px; cursor: pointer;" for="input_file_' + meta_id + '"><i class="fa fa-cloud-upload" aria-hidden="true"></i> Tải lên</label></div></ul>';
-
-                                file_meta_list.append(html_file);
                                 toastr.success("Thêm file thành công!");
                             } else {
                                 toastr.error(response.data);
@@ -1471,72 +1421,38 @@ $type_html = base_url() . "input/gettypehtml";
 
 
         // Handle clear user
-        $("body").on("click", ".btn-clear-user", function(e) {
-            const meta_id = $(this).attr("data-meta-id");
-            const project_id = $(this).attr("data-project-id");
-            const group_id = $(this).attr("data-group-id");
-            const value = $(this).attr("data-user-id");
+        // $("body").on("click", ".btn-clear-user", function(e) {
+        //     const meta_id = $(this).attr("data-meta-id");
+        //     const project_id = $(this).attr("data-project-id");
+        //     const group_id = $(this).attr("data-group-id");
+        //     const value = $(this).attr("data-user-id");
 
-            const task_meta = $(`.task-meta[data-meta-id='${meta_id}']`);
+        //     const task_meta = $(`.task-meta[data-meta-id='${meta_id}']`);
 
-            const payload = {
-                meta_id,
-                project_id,
-                group_id,
-                value,
-                type: "people_remove"
-            }
+        //     const payload = {
+        //         meta_id,
+        //         project_id,
+        //         group_id,
+        //         value,
+        //         type: "people_remove"
+        //     }
 
-            $.ajax({
-                url: "<?= base_url() ?>admin/items/update_meta",
-                method: "post",
-                data: payload,
-                dataType: "json",
-                success: function(response) {
-                    if (response.success) {
+        //     $.ajax({
+        //         url: "<?= base_url() ?>admin/items/update_meta",
+        //         method: "post",
+        //         data: payload,
+        //         dataType: "json",
+        //         success: function(response) {
+        //             if (response.success) {
 
-                        task_meta.empty();
-                        task_meta.append(response.data);
+        //                 task_meta.empty();
+        //                 task_meta.append(response.data);
 
-                        toastr.success("Thay đổi đã được cập nhật!");
-                    }
-                }
-            })
-        });
-
-        // Handle add user in meta item
-        $("body").on('click', '.user_list_item', function() {
-            const meta_id = $(this).attr("data-meta-id");
-            const project_id = $(this).attr("data-project-id");
-            const group_id = $(this).attr("data-group-id");
-            const value = $(this).attr("data-user-id");
-
-            const task_meta = $(`.task-meta[data-meta-id='${meta_id}']`);
-
-            const payload = {
-                meta_id,
-                group_id,
-                project_id,
-                value,
-                type: "people_add"
-            }
-
-            $.ajax({
-                url: "<?= base_url() ?>admin/items/update_meta",
-                method: "post",
-                data: payload,
-                dataType: "json",
-                success: function(response) {
-                    if (response.success) {
-
-                        task_meta.empty();
-                        task_meta.append(response.data);
-
-                        toastr.success("Thay đổi đã được cập nhật!");
-                    }
-                }
-            })
-        });
+        //                 toastr.success("Thay đổi đã được cập nhật!");
+        //             }
+        //         }
+        //     })
+        // });
     });
 
     // Handle sort task

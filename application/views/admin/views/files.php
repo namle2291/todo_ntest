@@ -7,7 +7,7 @@
     .file-image img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        /* object-fit: cover; */
     }
 
     .file-item {
@@ -81,7 +81,10 @@
 
     }
 </style>
-
+<?php
+$folder_id_url = $this->uri->segment(3);
+$project_id_url = $this->uri->segment(4);
+?>
 <div class="row px-3">
     <div class="col-9">
         <input class="project-title fs-4" data-project-id="<?= $project_item->id; ?>" value="<?= $project_item->title; ?>" />
@@ -90,7 +93,7 @@
         <?php $this->load->view("templates/admin/logs", ['project' => $project_item]) ?>
     </div>
     <div class="mb-3">
-        <?php $this->load->view("templates/admin/board-toolbar", ['project_id' => $project_item->id, 'parent_id' => $project_item->parent_id]) ?>
+        <?php $this->load->view("templates/admin/board-toolbar", ['project_id' => $project_item->id, 'parent_id' => $project_item->parent_id, 'folder_id_url' => $folder_id_url]) ?>
     </div>
 
     <div class="card border border-primary">

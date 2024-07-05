@@ -1,5 +1,5 @@
 <div class="row pt-3" style="padding-left: 37px !important;">
-    <?php if (count($items) > 0) : ?>
+    <?php if (isset($items) && count($items) > 0) : ?>
         <?php foreach ($items as $project) : ?>
             <div class="col-md-8">
                 <input class="project-title fs-4" data-project-id="<?= $project->id; ?>" value="<?= $project->title; ?>" />
@@ -214,25 +214,29 @@
                                     ['chuahoanthanh', 'danger']
                                 ];
                                 ?>
-                                <?php foreach ($this->Items_model->get_all_meta($tasks[0]->id) as $key => $meta) : ?>
-                                    <?php $field = $this->Items_model->get_field_by_key($meta->key); ?>
-                                    <div class="task-meta" style="width: <?= $field->width ? $field->width : '' ?>;" data-field-id="<?= $field->id ?>">
-                                        <?php if ($field->type_html == "status") : ?>
-                                            <div class="progress-stacked">
-                                                <?php foreach ($status as $st) : ?>
-                                                    <?php $percent = $this->Items_model->get_percent($group->id, $field->key, $st[0]); ?>
-                                                    <?php if ($percent[0] > 0) : ?>
-                                                        <div class="progress" data-bs-toggle="tooltip" data-placement="top" data-bs-title="<?= $percent[1]  ?>/<?= count($tasks) ?>" role="progressbar" aria-label="Tien do" aria-valuenow="<?= ceil($percent[0]); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= ceil($percent[0]); ?>%;">
-                                                            <div class="progress-bar bg-<?= $st[1]; ?>"></div>
-                                                        </div>
-                                                    <?php endif; ?>
-                                                <?php endforeach; ?>
-                                            </div>
-                                        <?php else : ?>
-                                            <div style="width: <?= $field->width; ?>"></div>
-                                        <?php endif; ?>
-                                    </div>
-                                <?php endforeach; ?>
+
+                                <?php if (isset($tasks[0])) : ?>
+                                    <?php foreach ($this->Items_model->get_all_meta($tasks[0]->id) as $key => $meta) : ?>
+                                        <?php $field = $this->Items_model->get_field_by_key($meta->key); ?>
+                                        <div class="task-meta" style="width: <?= $field->width ? $field->width : '' ?>;" data-field-id="<?= $field->id ?>">
+                                            <?php if ($field->type_html == "status") : ?>
+                                                <div class="progress-stacked">
+                                                    <?php foreach ($status as $st) : ?>
+                                                        <?php $percent = $this->Items_model->get_percent($group->id, $field->key, $st[0]); ?>
+                                                        <?php if ($percent[0] > 0) : ?>
+                                                            <div class="progress" data-bs-toggle="tooltip" data-placement="top" data-bs-title="<?= $percent[1]  ?>/<?= count($tasks) ?>" role="progressbar" aria-label="Tien do" aria-valuenow="<?= ceil($percent[0]); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= ceil($percent[0]); ?>%;">
+                                                                <div class="progress-bar bg-<?= $st[1]; ?>"></div>
+                                                            </div>
+                                                        <?php endif; ?>
+                                                    <?php endforeach; ?>
+                                                </div>
+                                            <?php else : ?>
+                                                <div style="width: <?= $field->width; ?>"></div>
+                                            <?php endif; ?>
+                                        </div>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+
                             </div>
                         </div>
                     </div>

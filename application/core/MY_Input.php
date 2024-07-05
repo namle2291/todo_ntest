@@ -1,9 +1,11 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class MY_Input extends CI_Input {
+class MY_Input extends CI_Input
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -14,7 +16,8 @@ class MY_Input extends CI_Input {
      * @param    bool    $xss_clean Whether to apply XSS filtering
      * @return   mixed
      */
-    public function post($index = NULL, $xss_clean = NULL) {
+    public function post($index = NULL, $xss_clean = NULL)
+    {
         $post = parent::post($index, $xss_clean);
         return $this->_strip_html_tags($post);
     }
@@ -26,7 +29,8 @@ class MY_Input extends CI_Input {
      * @param    bool    $xss_clean Whether to apply XSS filtering
      * @return   mixed
      */
-    public function get($index = NULL, $xss_clean = NULL) {
+    public function get($index = NULL, $xss_clean = NULL)
+    {
         $get = parent::get($index, $xss_clean);
         return $this->_strip_html_tags($get);
     }
@@ -38,7 +42,8 @@ class MY_Input extends CI_Input {
      * @param    bool    $xss_clean Whether to apply XSS filtering
      * @return   mixed
      */
-    public function request($index = NULL, $xss_clean = NULL) {
+    public function request($index = NULL, $xss_clean = NULL)
+    {
         $request = parent::request($index, $xss_clean);
         return $this->_strip_html_tags($request);
     }
@@ -49,13 +54,15 @@ class MY_Input extends CI_Input {
      * @param    mixed   $data  Input data
      * @return   mixed
      */
-    private function _strip_html_tags($data) {
+    private function _strip_html_tags($data)
+    {
+
         if (is_array($data)) {
             foreach ($data as $key => $value) {
                 $data[$key] = $this->_strip_html_tags($value);
             }
         } else {
-            $data = strip_tags(urldecode($data));
+            $data = isset($data) ? strip_tags(urldecode($data)) : "";
         }
         return $data;
     }

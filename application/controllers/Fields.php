@@ -25,7 +25,9 @@ class Fields extends CI_Controller
             $type = $this->input->post('type');
             $item_id = $this->input->post('items_id');
             $group_id = $this->input->post('group_id');
+            
             $type = $this->input->post('type');
+
 
             $group = $this->Items_model->find_by_id($group_id);
 
@@ -51,7 +53,7 @@ class Fields extends CI_Controller
             if ($type == "customtable") {
                 unset($data['group']);
             }
-            
+
             $meta_html_arr = [];
 
             foreach ($item_meta as $key => $meta) {

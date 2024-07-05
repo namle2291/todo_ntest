@@ -14,7 +14,7 @@ $options = [
 <div class="input-group" <?= $required ? "required" : "" ?> data-title="<?= $title ?>" data-key="<?= $key ?>">
     <select name="<?= $key ?>" class="form-select">
         <?php foreach ($options as $key => $option) : ?>
-            <option <?= explode("|", $key)[0]  == explode("|", $value)[0]  ? "selected = 'selected'" : "" ?> value="<?= $key  ?>"><?= $option[0] ?></option>
+            <option <?= isset($value) && explode("|", $key)[0]  == explode("|", $value)[0]  ? "selected = 'selected'" : "" ?> value="<?= $key  ?>"><?= $option[0] ?></option>
         <?php endforeach; ?>
     </select>
 </div>

@@ -58,7 +58,7 @@ class Schedule extends CI_Controller
 
         $tuan = $this->input->post("tuan");
 
-        $timetables = $this->Items_model->get_where(0, ['type_id' => self::TIMETALBE_ID]);
+        $timetables = $this->Items_model->find_by_type(self::TIMETALBE_ID);
 
         $data_show = [];
 
@@ -111,6 +111,7 @@ class Schedule extends CI_Controller
             ];
         }
 
+        $html = null;
 
         if (count($data_show) > 0) {
             $data['data'] = $data_show;

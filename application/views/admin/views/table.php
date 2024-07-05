@@ -119,7 +119,14 @@
                                             <div class="group-filter-column">
 
                                                 <?php
-                                                $meta_filters = json_decode($this->Items_model->get_meta($project->id, "filter")->value);
+
+                                                $meta_value = $this->Items_model->get_meta($project->id, "filter");
+
+                                                $meta_filters = [];
+
+                                                if (isset($meta_value)) {
+                                                    $meta_filters = json_decode($meta_value->value);
+                                                }
 
                                                 $condition_arr = [
                                                     [
@@ -557,13 +564,11 @@
                                     <!--- Toản thêm 15/06/2024 !-->
 
                                     <!-- link zalo -->
-                                    <?php if (!empty($meta->value)) : ?>
-                                        <a style="line-height: 26px;" class="btn btn-sm btn-outline-secondary btn-add-zalo" href="<?= $meta->value ?>" data-group-id="<?= $group->id ?>" data-meta-id="<?= $meta->id ?>" target="_blank" <?= !empty($meta->value) ? "" : "hidden" ?>>
-                                            <span class="d-flex align-items-center gap-2"><i class="fa fa-link"></i>
-                                                <span>Nhóm zalo</span>
-                                            </span>
-                                        </a>
-                                    <?php endif; ?>
+                                    <a style="line-height: 26px;" class="btn btn-sm btn-outline-secondary" href="<?= isset($meta->value) ? $meta->value :  "" ?>" data-group-id="<?= $group->id ?>" data-meta-id="<?= isset($meta->id) ? $meta->id :  "" ?>" target="_blank" <?= !empty($meta->value) ? "" : "hidden" ?>>
+                                        <span class="d-flex align-items-center gap-2"><i class="fa fa-link"></i>
+                                            <span>Nhóm zalo</span>
+                                        </span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -1434,17 +1439,10 @@ $type_html = base_url() . "input/gettypehtml";
                             const meta_last = task_item.find(".task-meta:last");
 
                             if (meta_last.length > 0) {
-
-                                console.log(meta)
-
                                 $(meta.meta_html).insertAfter(meta_last);
-                                console.log("insert")
                             } else {
                                 task_item.append(meta.meta_html);
-                                console.log("append")
                             }
-
-
                         })
 
                         $(".task-item-header").css("width", "fit-content");
@@ -2982,7 +2980,7 @@ $type_html = base_url() . "input/gettypehtml";
 
     //Handel add link zalo
     $(document).ready(function() {
-        $(".btn-add-link-zalo").click(function() {
+        $("body").on("click", ".btn-add-link-zalo", function() {
             const group_id = $(this).attr("data-group");
             const old_link = $(this).attr("data-old-link")
             $("#zaloLink").val(old_link);
@@ -2999,8 +2997,7 @@ $type_html = base_url() . "input/gettypehtml";
                 '(\\#[-a-z\\d_]*)?$', 'i');
             return !!pattern.test(str);
         }
-
-        $(".addZalobtn").click(function() {
+        $("body").on("click", ".addZalobtn", function() {
             const group_id = $(this).attr("data-id");
             const zaloLink = $("#zaloLink").val();
             const a_linkgroup = $(`a[data-group-id='${group_id}']`);

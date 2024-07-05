@@ -40,11 +40,12 @@
     <script src="<?= base_url(); ?>assets/dataTable/dataTables.js"></script>
 
     <!-- DateRangePicker -->
+    <script src="<?= base_url(); ?>assets/adminlte/plugins/moment/moment.min.js"></script>
+    
+    <!-- DateRangePicker -->
     <link rel="stylesheet" href="<?= base_url(); ?>assets/adminlte/plugins/daterangepicker/daterangepicker.css" />
     <script src="<?= base_url(); ?>assets/adminlte/plugins/daterangepicker/daterangepicker.js"></script>
 
-    <!-- DateRangePicker -->
-    <script src="<?= base_url(); ?>assets/adminlte/plugins/moment/moment.min.js"></script>
 
     <!-- Toastr -->
     <link rel="stylesheet" href="<?= base_url(); ?>assets/toastr/toastr.min.css">

@@ -2,6 +2,7 @@
 $type_url = "";
 $project_icon = "";
 $parent = $this->Items_model->find_by_id($personalProject->parent_id);
+$project_id_url = isset($project_id_url) ? $project_id_url : "";
 
 switch ($personalProject->type_id) {
     case $this->config->item("TIMETALBE_ID"):
