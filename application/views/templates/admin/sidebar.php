@@ -211,7 +211,6 @@
         width: 20px;
         height: 20px;
         overflow: hidden;
-        border-radius: 50%;
     }
 
 
@@ -434,7 +433,7 @@ $userInfo = $this->User_model->get_user_by_id($userId);
                                             <div class="group_list_project_personal_item_image">
                                                 <img src="<?= base_url("assets/images/" . $project_icon . ".svg") ?>" alt="">
                                             </div>
-                                            <div class="group_list_project_personal_item_title text-truncate">
+                                            <div class="group_list_project_personal_item_title text-truncate w-75">
                                                 <?= $project->title ?>
                                             </div>
                                         </div>
