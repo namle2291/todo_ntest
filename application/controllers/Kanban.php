@@ -14,7 +14,7 @@ class Kanban extends CI_Controller {
         }
     }
 
-    public function view($id)
+    public function view($folder_id, $id)
     {
         $data['project'] = $this->Items_model->find_by_id($id);
         $data['groups'] = $this->Items_model->get_groups_by_owner($id, "id", "asc");
