@@ -60,6 +60,10 @@ class MyWork extends CI_Controller
             }
         }
 
+        // echo "<pre>";
+        // var_dump(array_keys($data));
+        // die();
+
         $this->load->admin('admin/views/my_work', $data);
     }
 }

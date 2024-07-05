@@ -5,7 +5,7 @@ $meta_id = isset($meta_id) ? $meta_id : "";
 $project = isset($project) ? $project : (object) array();
 $group = isset($group) ? $group : (object) array();
 
-$user_id_list = $group->owners;
+$user_id_list = isset($group->owners) ? $group->owners : "";
 
 $users = $this->User_model->find_in_set($user_id_list);
 $users_of_meta = $this->User_model->find_in_set($value);
@@ -31,7 +31,7 @@ $users_of_meta = $this->User_model->find_in_set($value);
 
             <?php if (count($users_of_meta) > 3) : ?>
                 <div class="extra-files-count" data-bs-toggle="dropdown" aria-expanded="false">
-                    <span> <?= "+" . count($users_of_meta) - 3 ?> </span>
+                    <span> <?= "+" . (count($users_of_meta) - 3) ?> </span>
                 </div>
             <?php endif; ?>
 
@@ -73,7 +73,7 @@ $users_of_meta = $this->User_model->find_in_set($value);
 
                     <?php foreach ($users_of_department as $user) : ?>
                         <?php if (!in_array($user->id, $user_meta_id)) : ?>
-                            <li class="user_list_item user_list_item_<?= $meta_id ?>" data-meta-id="<?= $meta_id ?>" data-project-id="<?= $project->id ?>" data-user-id="<?= $user->id ?>" data-group-id="<?= $group->id ?>">
+                            <li class="user_list_item user_list_item_<?= $meta_id ?>" data-meta-id="<?= $meta_id ?>" data-project-id="<?= isset($project->id) ? $project->id : "" ?>" data-user-id="<?= isset($user->id) ? $user->id : "" ?>" data-group-id="<?= isset($group->id) ? $group->id : "" ?>">
                                 <img src="<?= base_url($user->avatar) ?>" alt="" style="border-radius: 50%;">
                                 <span><?= $user->firstname . " " . $user->lastname ?></span>
                             </li>

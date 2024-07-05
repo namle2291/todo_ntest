@@ -1,3 +1,6 @@
+<?php
+$meta = isset($meta) ? $meta : "";
+?>
 <div class="group-list-item mb-3" <?= $group->display ? "" : "hidden" ?> data-group-id="<?= $group->id ?>">
     <div class="group-item-title mb-3">
         <div class="row me-0">
@@ -54,7 +57,7 @@
                 </button>
 
                 <!-- link zalo -->
-                <a style="line-height: 26px;" class="btn btn-sm btn-outline-secondary btn-add-member" href="<?= $meta->value ?>" data-group-id="<?= $group->id ?>" data-meta-id="<?= $meta->id ?>" target="_blank" <?= !empty($meta->value) ? "" : "hidden" ?>>
+                <a style="line-height: 26px;" class="btn btn-sm btn-outline-secondary" href="<?= isset($meta->value) ? $meta->value :  "" ?>" data-group-id="<?= $group->id ?>" data-meta-id="<?=  isset($meta->id) ? $meta->id :  "" ?>" target="_blank" <?= !empty($meta->value) ? "" : "hidden" ?>>
                     <span class="d-flex align-items-center gap-2"><i class="fa fa-link"></i>
                         <span>Nhóm zalo</span>
                     </span>

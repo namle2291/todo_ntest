@@ -1,6 +1,10 @@
 <?php
 
 $group = isset($group) ? $group : (object) array();
+$project = isset($project) ? $project : (object) array();
+
+$key = isset($key) ? $key : "";
+$meta_id = isset($meta_id) ? $meta_id : "";
 
 
 $projectIdEnc = $this->stringencryption->encryptString($project->id, $this->config->item("image_key"));
@@ -121,4 +125,4 @@ $filePath = "items/file/" . $projectIdEnc . "/" . $groupIdEnc . "/";
     </label>
 <?php endif; ?>
 
-<input type="file" id="input_file_<?= $meta_id ?>" data-id="<?= $data_id ?>" data-group-id="<?= $group->id ?>" data-group-key-code="<?= $group->key_code ?>" data-meta-id="<?= $meta_id ?>" name="<?= $key ?>" multiple class="input_file_upload form-control input-table" hidden />
+<input type="file" id="input_file_<?= $meta_id ?>" data-group-id="<?= $group->id ?>" data-group-key-code="<?= $group->key_code ?>" data-meta-id="<?= $meta_id ?>" name="<?= $key ?>" multiple class="input_file_upload form-control input-table" hidden />

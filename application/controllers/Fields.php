@@ -38,9 +38,6 @@ class Fields extends CI_Controller
             unset($data_request['group_id']);
             unset($data_request['type']);
 
-
-
-
             $field_id = $this->fields_model->add($data_request, $type);
 
             $field = $this->fields_model->get_by_id($field_id);

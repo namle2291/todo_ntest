@@ -17,6 +17,6 @@ if (str_contains($value, "/")) {
 
 ?>
 
-<div class="input-group input-group-table" data-group-id="<?= $group->id ?>">
+<div class="input-group input-group-table" data-group-id="<?= isset($group->id) ? $group->id : "" ?>">
     <input type="date" style="width: <?= $width ?>" data-meta-id="<?= $meta_id ?>" name="<?= $key ?>" value="<?= $value ?>" class="form-control input-table" />
 </div>

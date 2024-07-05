@@ -26,7 +26,7 @@ $userId = $this->session->userdata('user_id');
             <?php if (!$item->is_private && !$item->is_archived) : ?>
                 <?php if ($item->type_id == 7) : ?>
                     <?php foreach ($this->Items_model->get_child_items($item->id) as $child) : ?>
-                        <div class="col-6 col-md-4 col-lg-3 mb-3">
+                        <div class="col-6 col-md-3 col-lg-2 mb-3">
                             <a class="text-decoration-none" href="<?= base_url(); ?>table/view/<?= $folder_id_url ?>/<?= $child->id ?>">
                                 <div class="card">
                                     <img src="https://cdn.monday.com/images/quick_search_recent_board.svg" class="card-img-top" alt="...">
@@ -38,7 +38,7 @@ $userId = $this->session->userdata('user_id');
                         </div>
                     <?php endforeach; ?>
                 <?php elseif ($item->type_id == 32) : ?>
-                    <div class="col-6 col-md-4 col-lg-3 mb-3">
+                    <div class="col-6 col-md-3 col-lg-2 mb-3">
                         <a class="text-decoration-none" href="<?= base_url(); ?>timetable/view/<?= $folder_id_url ?>/<?= $item->id ?>">
                             <div class="card">
                                 <img src="https://cdn.monday.com/images/quick_search_recent_board.svg" class="card-img-top" alt="...">
@@ -49,7 +49,7 @@ $userId = $this->session->userdata('user_id');
                         </a>
                     </div>
                 <?php elseif ($item->type_id == 31) : ?>
-                    <div class="col-6 col-md-4 col-lg-3 mb-3">
+                    <div class="col-6 col-md-3 col-lg-2 mb-3">
                         <a class="text-decoration-none" href="<?= base_url(); ?>customtable/view/<?= $folder_id_url ?>/<?= $item->id ?>">
                             <div class="card">
                                 <img src="https://cdn.monday.com/images/quick_search_recent_board.svg" class="card-img-top" alt="...">
@@ -60,7 +60,7 @@ $userId = $this->session->userdata('user_id');
                         </a>
                     </div>
                 <?php else : ?>
-                    <div class="col-6 col-md-4 col-lg-3 mb-3">
+                    <div class="col-6 col-md-3 col-lg-2 mb-3">
                         <a class="text-decoration-none" href="<?= base_url(); ?>table/view/<?= $folder_id_url ?>/<?= $item->id ?>">
                             <div class="card">
                                 <img src="https://cdn.monday.com/images/quick_search_recent_board.svg" class="card-img-top" alt="...">

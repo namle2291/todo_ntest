@@ -119,7 +119,14 @@
                                             <div class="group-filter-column">
 
                                                 <?php
-                                                $meta_filters = json_decode($this->Items_model->get_meta($project->id, "filter")->value);
+
+                                                $meta_value = $this->Items_model->get_meta($project->id, "filter");
+
+                                                $meta_filters = [];
+
+                                                if (isset($meta_value)) {
+                                                    $meta_filters = json_decode($meta_value->value);
+                                                }
 
                                                 $condition_arr = [
                                                     [
@@ -390,7 +397,7 @@
                                         <?php if (count($group_owners) > 3) : ?>
                                             <div class="d-flex align-items-center justify-content-center" style="width: 35px; height: 35px; border-radius:50%; background-color: #B9B9B9;">
                                                 <strong>
-                                                    <?= "+" . count($group_owners) - 3 ?>
+                                                    <?= "+" . (count($group_owners) - 3) ?>
                                                 </strong>
                                             </div>
                                         <?php endif; ?>
@@ -557,7 +564,7 @@
                                     <!--- Toản thêm 15/06/2024 !-->
 
                                     <!-- link zalo -->
-                                    <a style="line-height: 26px;" class="btn btn-sm btn-outline-secondary btn-add-zalo" href="<?= $meta->value ?>" data-group-id="<?= $group->id ?>" data-meta-id="<?= $meta->id ?>" target="_blank" <?= !empty($meta->value) ? "" : "hidden" ?>>
+                                    <a style="line-height: 26px;" class="btn btn-sm btn-outline-secondary" href="<?= isset($meta->value) ? $meta->value :  "" ?>" data-group-id="<?= $group->id ?>" data-meta-id="<?= isset($meta->id) ? $meta->id :  "" ?>" target="_blank" <?= !empty($meta->value) ? "" : "hidden" ?>>
                                         <span class="d-flex align-items-center gap-2"><i class="fa fa-link"></i>
                                             <span>Nhóm zalo</span>
                                         </span>
@@ -823,30 +830,30 @@
                                     ['chuahoanthanh', 'danger']
                                 ];
                                 ?>
+                                <?php if (isset($tasks[0])) : ?>
+                                    <?php foreach ($this->Items_model->get_all_meta($tasks[0]->id) as $key => $meta) : ?>
+                                        <?php $field = $this->Items_model->get_field_by_key($meta->key); ?>
 
-                                <?php foreach ($this->Items_model->get_all_meta($tasks[0]->id) as $key => $meta) : ?>
-                                    <?php $field = $this->Items_model->get_field_by_key($meta->key); ?>
-
-                                    <?php if ($field->display == 1) : ?>
-                                        <div class="task-meta" style="width: <?= $field->width ? $field->width : '' ?>;" data-field-id="<?= $field->id ?>">
-                                            <?php if ($field->type_html == "status") : ?>
-                                                <div class="progress-group rounded-2 overflow-hidden d-flex" data-group-id="<?= $group->id ?>">
-                                                    <?php foreach ($status as $st) : ?>
-                                                        <?php $percent = $this->Items_model->get_percent($group->id, $field->key, $st[0]); ?>
-                                                        <?php if ($percent[0] != "0") : ?>
-                                                            <div class="progress bg-<?= $st[1]; ?>" data-bs-toggle="tooltip" data-placement="top" data-bs-title="<?= $percent[1]  ?>/<?= count($tasks) ?>" role="progressbar" aria-label="Tien do" aria-valuenow="<?= ceil($percent[0]); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= ceil($percent[0]); ?>%; border-radius: 0 !important;">
-                                                                <div class="progress-bar"></div>
-                                                            </div>
-                                                        <?php endif; ?>
-                                                    <?php endforeach; ?>
-                                                </div>
-                                            <?php else : ?>
-                                                <div style="width: <?= $field->width; ?>"></div>
-                                            <?php endif; ?>
-                                        </div>
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
-
+                                        <?php if ($field->display == 1) : ?>
+                                            <div class="task-meta" style="width: <?= $field->width ? $field->width : '' ?>;" data-field-id="<?= $field->id ?>">
+                                                <?php if ($field->type_html == "status") : ?>
+                                                    <div class="progress-group rounded-2 overflow-hidden d-flex" data-group-id="<?= $group->id ?>">
+                                                        <?php foreach ($status as $st) : ?>
+                                                            <?php $percent = $this->Items_model->get_percent($group->id, $field->key, $st[0]); ?>
+                                                            <?php if ($percent[0] != "0") : ?>
+                                                                <div class="progress bg-<?= $st[1]; ?>" data-bs-toggle="tooltip" data-placement="top" data-bs-title="<?= $percent[1]  ?>/<?= count($tasks) ?>" role="progressbar" aria-label="Tien do" aria-valuenow="<?= ceil($percent[0]); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= ceil($percent[0]); ?>%; border-radius: 0 !important;">
+                                                                    <div class="progress-bar"></div>
+                                                                </div>
+                                                            <?php endif; ?>
+                                                        <?php endforeach; ?>
+                                                    </div>
+                                                <?php else : ?>
+                                                    <div style="width: <?= $field->width; ?>"></div>
+                                                <?php endif; ?>
+                                            </div>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -1432,17 +1439,10 @@ $type_html = base_url() . "input/gettypehtml";
                             const meta_last = task_item.find(".task-meta:last");
 
                             if (meta_last.length > 0) {
-
-                                console.log(meta)
-
                                 $(meta.meta_html).insertAfter(meta_last);
-                                console.log("insert")
                             } else {
                                 task_item.append(meta.meta_html);
-                                console.log("append")
                             }
-
-
                         })
 
                         $(".task-item-header").css("width", "fit-content");
@@ -2980,7 +2980,7 @@ $type_html = base_url() . "input/gettypehtml";
 
     //Handel add link zalo
     $(document).ready(function() {
-        $(".btn-add-link-zalo").click(function() {
+        $("body").on("click", ".btn-add-link-zalo", function() {
             const group_id = $(this).attr("data-group");
             const old_link = $(this).attr("data-old-link")
             $("#zaloLink").val(old_link);
@@ -2997,8 +2997,7 @@ $type_html = base_url() . "input/gettypehtml";
                 '(\\#[-a-z\\d_]*)?$', 'i');
             return !!pattern.test(str);
         }
-
-        $(".addZalobtn").click(function() {
+        $("body").on("click", ".addZalobtn", function() {
             const group_id = $(this).attr("data-id");
             const zaloLink = $("#zaloLink").val();
             const a_linkgroup = $(`a[data-group-id='${group_id}']`);

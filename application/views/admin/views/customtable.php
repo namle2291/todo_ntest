@@ -797,23 +797,22 @@ $type_html = base_url() . "input/gettypehtml";
                             $(field_html).insertBefore(".btn-add-fields");
                         }
 
-                        data_html.map(meta => {
+
+                        console.log(data_html);
+
+                        data_html.map((meta, index) => {
 
                             const task_item = $(`.task-item[data-item-id='${meta.items_id}']`);
                             const meta_last = task_item.find(".task-meta:last");
 
+                            console.log(meta_last);
+                            
                             if (meta_last.length > 0) {
-
-                                console.log(meta)
-
                                 $(meta.meta_html).insertAfter(meta_last);
-                                console.log("insert")
+
                             } else {
                                 task_item.append(meta.meta_html);
-                                console.log("append")
                             }
-
-
                         })
 
                         $(".task-item-header").css("width", "fit-content");

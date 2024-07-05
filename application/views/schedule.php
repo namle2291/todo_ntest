@@ -30,6 +30,7 @@
     </div>
 
     <div class="col-6 col-md-8 d-flex align-items-end hoten_giangvien" hidden>
+        
     </div>
 
     <div class="col-12 mt-3 table-responsive">
@@ -51,7 +52,7 @@
             </thead>
             <tbody class="table-data-show">
                 <tr>
-                    <td class="text-center text-primary" colspan="8">
+                    <td class="text-center text-primary" colspan="9">
                         <span>Không tìm thấy dữ liệu!</span>
                     </td>
                 </tr>

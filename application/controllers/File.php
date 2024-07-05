@@ -116,7 +116,7 @@ class File extends CI_Controller
         $project = $this->Items_model->find_by_id($project_id);
         $group = $this->Items_model->find_by_id($group_id);
 
-        $file_html = $this->load->view("admin/views/components/file-meta", ['value' => $meta_updated->value, 'meta_id' => $meta_id, 'group' => $group, 'project' => $project], true);
+        $file_html = $this->load->view("admin/views/components/file-meta", ['value' => $meta_updated->value, 'meta_id' => $meta_id, 'group' => $group, 'project' => $project, 'key' => $key], true);
 
         echo json_encode(array('success' =>  $result ? true : false, "file_html" => $file_html, "file_type" => $fileType));
     }

@@ -111,7 +111,7 @@ class Items extends CI_Controller
 
             $item       = $this->Items_model->find_by_id($result);
             $group      = $this->Items_model->find_by_id($item->parent_id);
-            $project    = $this->Items_model->find_by_id($group->parent_id);
+            $project    = isset($group->parent_id) ? $this->Items_model->find_by_id( $group->parent_id) :  (object) array();
 
             switch ($item->type_id) {
                 case self::PROJECT_ID:
@@ -162,7 +162,6 @@ class Items extends CI_Controller
                     $data['task']      = $item;
                     $data['group']     = $group;
                     $data['project']   = $project;
-
                     $html = $this->load->view("admin/views/components/table-row", $data, true);
                     echo json_encode(array('success' => true, 'data' => $html));
                     break;

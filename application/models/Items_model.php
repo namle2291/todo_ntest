@@ -107,7 +107,7 @@ class Items_model extends CI_Model
     public function get_folders($user_id)
     {
         $this->db->distinct();
-        
+
         $this->db->select('folders.*');
 
         $this->db->from('items as folders');
@@ -340,6 +340,7 @@ class Items_model extends CI_Model
                     $group =  $item = $this->db->get_where("items", ['id' => $group_id, 'deleted_at' => null])->row_object();
 
                     $fields_of_item = $this->db->get_where("fields", ['items_id' => $item_id, 'deleted_at' => null])->result_object();
+                    $this->db->update('items', ['key_code' => time() . $group->id], ['id' => $group->id]);
 
                     for ($i = 1; $i <= 2; $i++) {
                         // Create init task
@@ -373,6 +374,7 @@ class Items_model extends CI_Model
                         $this->add_field($data_field);
                     }
 
+                    $this->db->update('items', ['key_code' => time() .  $item_id], ['id' =>  $item_id]);
 
                     $fields_of_item = $this->db->get_where("fields", ['items_id' => $item_id, 'deleted_at' => null])->result_object();
 
@@ -508,13 +510,14 @@ class Items_model extends CI_Model
         $items_update = $this->db->update("items", $data_items, ["id" => $id]);
 
         if ($items_update) {
+
             $log = [
                 'type' => 'POST',
                 'table' => 'items',
                 'table_id' => $id,
                 'message' => 'success',
-                'value_old' => $items_old->title,
-                'value_new' => $data['title'],
+                'value_old' => isset($items_old->title) ? $items_old->title : "",
+                'value_new' => isset($data['title']) ? $data['title'] : "",
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
                 'user_id' => $this->session->userdata('user_id'),
@@ -611,7 +614,7 @@ class Items_model extends CI_Model
     {
         $meta_id = $data["meta_id"];
         $value = strip_tags($data["value"]);
-        $type = $data["type"];
+        $type = isset($data["type"]) ? $data["type"] : "";
 
         $meta_old = $this->db->get_where("items_meta", ['id' => $meta_id, 'deleted_at' => null])->row_object();
 
@@ -1090,9 +1093,9 @@ class Items_model extends CI_Model
 
             $_item_config = [
                 'items_id' => $array_id[$i],
-                'key'=> 'position',
-                'value'=> $i,
-                'user_id'=> $user_id
+                'key' => 'position',
+                'value' => $i,
+                'user_id' => $user_id
             ];
 
             if (empty($item_config)) {
@@ -1100,7 +1103,6 @@ class Items_model extends CI_Model
             } else {
                 $this->db->update('item_configs', $_item_config, ['id' => $item_config->id]);
             }
-
         }
 
         return true;
@@ -1324,14 +1326,14 @@ class Items_model extends CI_Model
 
         foreach ($items as $key => $item) {
 
-            $owners_arr = explode(",", $item->owners);
+            $owners_arr = isset($item->owners) ? explode(",", $item->owners) : [];
             unset($owners_arr[0]);
 
             if (in_array($user_id, $owners_arr)) {
                 $result[] = $item;
             } else {
                 foreach ($this->get_all_childs_item($item->id) as $child_item) {
-                    $owners_arr = explode(",", $child_item->owners);
+                    $owners_arr = isset($child_item->owners) ? explode(",", $child_item->owners) : [];
                     unset($owners_arr[0]);
 
                     if (in_array($user_id, $owners_arr)) {

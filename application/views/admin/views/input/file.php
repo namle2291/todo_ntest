@@ -8,8 +8,8 @@ $showBtnClear = isset($showBtnClear) ? $showBtnClear : false;
 $project = isset($project) ? $project : (object) array();
 $group = isset($group) ? $group : (object) array();
 
-$projectIdEnc = $this->stringencryption->encryptString($project->id, $this->config->item("image_key"));
-$groupIdEnc = $this->stringencryption->encryptString($group->id, $this->config->item("image_key"));
+$projectIdEnc = isset($project->id) ? $this->stringencryption->encryptString($project->id, $this->config->item("image_key")) : "";
+$groupIdEnc = isset($group->id) ? $this->stringencryption->encryptString($group->id, $this->config->item("image_key")) : "";
 
 $filePath = "items/file/" . $projectIdEnc . "/" . $groupIdEnc . "/";
 
@@ -128,6 +128,6 @@ $filePath = "items/file/" . $projectIdEnc . "/" . $groupIdEnc . "/";
             </label>
         <?php endif; ?>
 
-        <input type="file" id="input_file_<?= $meta_id ?>" data-id="<?= $data_id ?>" data-group-id="<?= $group->id ?>" data-group-key-code="<?= $group->key_code ?>" data-meta-id="<?= $meta_id ?>" name="<?= $key ?>" multiple class="input_file_upload form-control input-table" hidden />
+        <input type="file" id="input_file_<?= $meta_id ?>" data-id="<?= $data_id ?>" data-group-id="<?= $group->id ?>" data-group-key-code="<?= isset($group->key_code) ? $group->key_code : "" ?>" data-meta-id="<?= $meta_id ?>" name="<?= $key ?>" multiple class="input_file_upload form-control input-table" hidden />
     </div>
 </div>
