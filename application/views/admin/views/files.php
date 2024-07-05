@@ -316,7 +316,7 @@ $project_id_url = $this->uri->segment(4);
                 });
 
                 $(".file-image img").css({
-                    "object-fit": "cover",
+                    "object-fit": "contain",
                 });
 
                 break;

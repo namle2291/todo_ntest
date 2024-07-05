@@ -1,3 +1,5 @@
 /application/config/
 
 /vendor/
+/uploads/
+/application/logs/

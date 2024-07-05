@@ -1039,6 +1039,7 @@ class Items extends CI_Controller
         $result = $this->Items_model->search_items($search_key);
 
         echo json_encode(array("success" => true, "data" => count($result) > 0 ? $result : []));
+
     }
 
     public function search_department()
