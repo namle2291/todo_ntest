@@ -1,3 +1,8 @@
+<?php
+
+$folder_id_url = $this->uri->segment(3);
+$project_id_url = $this->uri->segment(4);
+?>
 <?php if ($project->is_archived) : ?>
     <div class="archive row mb-2">
         <span class="bg-danger text-white text-center justify-content-center py-2">
@@ -59,7 +64,7 @@
 
         <div class="col-12 my-3">
             <!-- Board Toolbar -->
-            <?php $this->load->view("templates/admin/board-toolbar", ['project_id' => $project->id, 'parent_id' => $project->parent_id]) ?>
+            <?php echo $this->load->view("templates/admin/board-toolbar", ['project_id' => $project->id, 'parent_id' => $project->parent_id, 'folder_id_url' => $folder_id_url], true) ?>
             <!-- End Board Toolbar -->
 
             <div class="form-actions">

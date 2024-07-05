@@ -10,7 +10,9 @@
         color: #fff;
     }
 </style>
-
+<?php
+$project_id = isset($project_id) ? $project_id : "";
+?>
 <button class="btn btn-outline-primary btn-sm" id="btn-show-active" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Hoạt động</button>
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" style="width: 40%;">

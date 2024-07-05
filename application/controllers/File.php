@@ -145,7 +145,7 @@ class File extends CI_Controller
 
         echo json_encode(array('success' => $result ? true : false, "file_html" => $file_html));
     }
-    public function view($id)
+    public function view($folder_id, $id)
     {
         if ($this->check_is_owner($id)) {
 

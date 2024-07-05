@@ -9,7 +9,7 @@ class Gantt extends CI_Controller
         $this->load->model('Fields_model');
     }
 
-    public function view($id)
+    public function view($folder_id, $id)
     {
         $data['project'] = $this->Items_model->find_by_id($id);
 
