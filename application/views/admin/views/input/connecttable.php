@@ -9,6 +9,7 @@ $type_slug = "table";
 $query     = $this->db->select("*")->from("fields")->where("key", $key)->get();
 $fields    = $query->num_rows() > 0 ? $query->row_object() : [];
 $tables   = $this->Items_model->get_where(0, ["type_id" => 31]);
+$class   = isset($class) ? $class : "";
 
 //echo $data_id;
 //var_dump($tables);
