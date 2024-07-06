@@ -1,3 +1,9 @@
+<?php
+
+$folder_id_url = $this->uri->segment(3);
+$project_id_url = $this->uri->segment(4);
+?>
+
 <div class="row pt-3" style="padding-left: 37px !important;">
     <?php if (isset($project)) : ?>
 
@@ -18,7 +24,7 @@
 
         <div class="col-12 my-3">
             <!-- Board Toolbar -->
-            <?php $this->load->view("templates/admin/board-toolbar", ['project_id' => $project->id]) ?>
+            <?php $this->load->view("templates/admin/board-toolbar", ['project_id' => $project->id, 'folder_id_url' => $folder_id_url]) ?>
             <!-- End Board Toolbar -->
 
             <div class="form-actions">
@@ -806,7 +812,7 @@ $type_html = base_url() . "input/gettypehtml";
                             const meta_last = task_item.find(".task-meta:last");
 
                             console.log(meta_last);
-                            
+
                             if (meta_last.length > 0) {
                                 $(meta.meta_html).insertAfter(meta_last);
 
