@@ -8,20 +8,16 @@ $width = isset($width) ? $width : "";
 <?php
 
 if (!empty($value) && trim($value) != "") {
-    
+
     $timeline = $value;
-    
     $dateNow = new DateTime(date("d-m-Y"));
-
     $startTime = explode("-", $value)[0];
-
     $endTime = explode("-", $value)[1];
 
     $new_data_start = new DateTime(implode("-", explode("/", $startTime)));
     $new_data_end = new DateTime(implode("-", explode("/", $endTime)));
 
     $timeDiff = $new_data_end->diff($dateNow);
-
     $value = (int)$timeDiff->format("%d");
 }
 ?>

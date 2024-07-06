@@ -111,7 +111,7 @@ class Items extends CI_Controller
 
             $item       = $this->Items_model->find_by_id($result);
             $group      = $this->Items_model->find_by_id($item->parent_id);
-            $project    = isset($group->parent_id) ? $this->Items_model->find_by_id( $group->parent_id) :  (object) array();
+            $project    = isset($group->parent_id) ? $this->Items_model->find_by_id($group->parent_id) :  (object) array();
 
             switch ($item->type_id) {
                 case self::PROJECT_ID:
@@ -298,7 +298,7 @@ class Items extends CI_Controller
 
             $items_dependent            = $this->Items_model->get_meta_by_field($item_id, $dependentTaskKey);
 
-            $items_id                   = explode(",", $items_dependent->value);
+            $items_id                   = isset($items_dependent) ? explode(",", $items_dependent->value) : [];
 
             $is_done                    = [];
 
@@ -1040,7 +1040,6 @@ class Items extends CI_Controller
         $result = $this->Items_model->search_items($search_key);
 
         echo json_encode(array("success" => true, "data" => count($result) > 0 ? $result : []));
-
     }
 
     public function search_department()
