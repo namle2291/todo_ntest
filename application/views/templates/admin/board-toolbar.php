@@ -115,7 +115,7 @@ $folder_id_url = isset($folder_id_url) ? $folder_id_url : "";
 
         <ul class="dropdown-menu menu-add-board-subset">
             <?php if ($project->type_id == 31) : ?>
-                <li data-project-id="<?= $project_id ?>" data-value="form" class="menu-board-subset-item px-2 dropdown-item" style="font-size: 14px;"> <span class="board-subset-icon"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span> <span> Form </span></li>
+                <li data-project-id="<?= $project_id ?>" data-folder-id="<?= $folder_id_url ?>" data-value="form" class="menu-board-subset-item px-2 dropdown-item" style="font-size: 14px;"> <span class="board-subset-icon"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span> <span> Form </span></li>
             <?php else : ?>
                 <li data-project-id="<?= $project_id ?>" data-folder-id="<?= $folder_id_url ?>" data-value="form" class="menu-board-subset-item px-2 dropdown-item" style="font-size: 14px;"> <span class="board-subset-icon"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span> <span> Form </span></li>
                 <li data-project-id="<?= $project_id ?>" data-folder-id="<?= $folder_id_url ?>" data-value="file" class="menu-board-subset-item px-2 dropdown-item" style="font-size: 14px;"> <span class="board-subset-icon"><i class="fa fa-picture-o" aria-hidden="true"></i></span> <span> File gallery </span></li>

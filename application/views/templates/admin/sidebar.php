@@ -78,10 +78,17 @@
     }
 
     .main-content.expanded {
-        transition: width 0.3s;
-        width: calc(100% - 70px);
+        margin-left: 0;
+        width: calc(100% - 50px);
+        transition: margin-left 0.2s ease, width 0.4s ease;
     }
 
+    @media (max-width: 768px) {
+        .main-content.expanded {
+            width: 100%;
+        }
+    }
+    
     .collapse-button {
         width: 50px;
         height: 50px;
@@ -299,7 +306,7 @@ $userInfo = $this->User_model->get_user_by_id($userId);
 
 <div class="side-bar d-none d-md-block <?= isset($folder_id_url) ? 'col-md-4 col-lg-3 col-xxl-2' : 'sidebar_home' ?> bg-light p-0 overflow-y-auto border-end" id="side-bar">
     <div class="row border h-100 m-0">
-        <div class="<?= isset($folder_id_url) ? 'col-2' : 'col-12' ?> p-0" style="background: #E4E6E9;">
+        <div class="<?= isset($folder_id_url) ? 'col-2' : 'col-12' ?> p-0" style="background: #E4E6E9;" id="sidebar_left">
             <!-- List project main -->
             <div class="list_project_main">
 
