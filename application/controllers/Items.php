@@ -298,20 +298,24 @@ class Items extends CI_Controller
 
             $items_dependent            = $this->Items_model->get_meta_by_field($item_id, $dependentTaskKey);
 
-            $items_id                   = explode(",", $items_dependent->value);
+            if ($items_dependent && isset($items_dependent->value)) {
+                $items_id = explode(",", $items_dependent->value);
+            } 
 
             $is_done                    = [];
 
-            foreach ($items_id as $id) {
-                $item                   = $this->db->select('*')
-                    ->from('items')
-                    ->where('id', $id)
-                    ->get()
-                    ->row_object();
-
-                if ($item) {
-                    $is_done[]          = $item->is_done;
-                    $dependentItems[]   = $item;
+            if(isset($items_id)){
+                foreach ($items_id as $id) {
+                    $item                   = $this->db->select('*')
+                        ->from('items')
+                        ->where('id', $id)
+                        ->get()
+                        ->row_object();
+    
+                    if ($item) {
+                        $is_done[]          = $item->is_done;
+                        $dependentItems[]   = $item;
+                    }
                 }
             }
 
