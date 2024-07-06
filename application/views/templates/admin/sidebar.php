@@ -449,16 +449,20 @@ $userInfo = $this->User_model->get_user_by_id($userId);
 
                 <!-- User setting -->
                 <div class="user_setting">
-                    <div class="user_setting_info">
-                        <div class="user_setting_info_avatar">
-                            <img src="<?= base_url() . $userInfo->avatar; ?>" alt="">
-                            <span class="user_setting_info_status"></span>
+                    <?php if (isset($userInfo)) : ?>
+
+                        <div class="user_setting_info">
+                            <div class="user_setting_info_avatar">
+                                <img src="<?= base_url() . $userInfo->avatar; ?>" alt="">
+                                <span class="user_setting_info_status"></span>
+                            </div>
+                            <div class="user_setting_name">
+                                <span class="d-block"><strong><?= $userInfo->firstname . " " . $userInfo->lastname; ?></strong></span>
+                                <span class="d-block" style="font-size: 13px;"><?= $userInfo->department_name ?></span>
+                            </div>
                         </div>
-                        <div class="user_setting_name">
-                            <span class="d-block"><strong><?= $userInfo->firstname . " " . $userInfo->lastname; ?></strong></span>
-                            <span class="d-block" style="font-size: 13px;"><?= $userInfo->department_name ?></span>
-                        </div>
-                    </div>
+
+                    <?php endif; ?>
 
                     <?php
                     $role_id = $this->session->userdata('role_id');
