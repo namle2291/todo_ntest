@@ -412,9 +412,9 @@ $project_id_url = $this->uri->segment(4);
                                         + Thành viên
                                     </button>
 
-                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-add-member" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddMember<?= $group->id ?>" aria-controls="offcanvasAddMember<?= $group->id ?>">
+                                    <!-- <button type="button" class="btn btn-sm btn-outline-secondary btn-add-member" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddMember<?= $group->id ?>" aria-controls="offcanvasAddMember<?= $group->id ?>">
                                         + Thiết lập
-                                    </button>
+                                    </button> -->
 
                                     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddMember<?= $group->id ?>" aria-labelledby="offcanvasAddMemberLabel">
                                         <div class="offcanvas-header">
