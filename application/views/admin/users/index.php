@@ -126,18 +126,6 @@
 
                     </div>
 
-                    <div class="form-group">
-                        <label>Khoa</label>
-                        <select class="form-control" name="Department" required>
-                            <option value="">Select khoa</option>
-                            <?php foreach ($khoa as $k) : ?>
-                                <option value="<?php echo $k->id; ?>"><?php echo $k->title; ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <span id="Role_error" class="text-danger"></span>
-
-                    </div>
-
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>
             </div>

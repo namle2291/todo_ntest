@@ -283,9 +283,9 @@ $project_id_url = $this->uri->segment(4);
             <span class="d-none d-md-block ms-2">Work Management</span>
           </a>
         </li>
-        <li class="btn-show-navbar-mobile nav-item d-md-none px-2" data-bs-toggle="offcanvas" href="#offcanvasSideBarMobile" role="button" aria-controls="offcanvasSideBarMobile">
+        <!-- <li class="btn-show-navbar-mobile nav-item d-md-none px-2" data-bs-toggle="offcanvas" href="#offcanvasSideBarMobile" role="button" aria-controls="offcanvasSideBarMobile">
           <i class="fa fa-bars" aria-hidden="true"></i>
-        </li>
+        </li> -->
       </ul>
     </div>
     <div class="col-4">

@@ -222,3 +222,42 @@ $("body").on("click", ".btn-collapse", function () {
     $(this).children().attr("class", "fa fa-chevron-down text-primary");
   }
 });
+
+//Collapse sidebar
+function setSidebarState(collapsed) {
+  if (collapsed) {
+    $("#side-bar").addClass("sidebar_home").removeClass("col-md-4 col-lg-3 col-xxl-2");
+    $("#sidebar_left").addClass("col-12").removeClass("col-2");
+    $("#sidebar_right").attr("hidden", true);
+  } else {
+    $("#side-bar").addClass("col-md-4 col-lg-3 col-xxl-2").removeClass("sidebar_home");
+    $("#sidebar_left").addClass("col-2").removeClass("col-12");
+    $("#sidebar_right").removeAttr("hidden");
+  }
+}
+
+//Sidebar state when reload page
+function initSidebarState() {
+  const collapsed = localStorage.getItem("sidebar_collapsed") === "true";
+  $("#sidebar_right").toggleClass("collapsed", collapsed);
+  $("#main-content").toggleClass("expanded", collapsed);
+  setSidebarState(collapsed);
+}
+
+$(document).ready(function () {
+  const currentURL = window.location.href;
+  if (currentURL.match(baseUrl + "folder/view/\\d+") || currentURL.match(baseUrl + "table/view/\\d+" ) || currentURL.match(baseUrl + "customtable/view/\\d+" )){ //chỉ collapse khi trong view folder
+    initSidebarState();
+
+    $("#toggle-sidebar").on("click", function () {
+        $("#sidebar_right").toggleClass("collapsed");
+        $("#main-content").toggleClass("expanded");
+
+        const collapsed = $("#sidebar_right").hasClass("collapsed");
+        setSidebarState(collapsed);
+
+        // Save the sidebar state to localStorage
+        localStorage.setItem('sidebar_collapsed', collapsed);
+    });
+}
+});
