@@ -252,7 +252,8 @@
     background: green;
     border-radius: 50%;
   }
-  .show_notification_btn_dot{
+
+  .show_notification_btn_dot {
     display: none;
     content: "";
     position: absolute;
@@ -318,9 +319,11 @@ $project_id_url = $this->uri->segment(4);
           </div>
 
           <div class="account" data-bs-toggle="dropdown" aria-expanded="false">
-            <div class="user_avatar">
-              <img id="avatarImg" src="<?= base_url() . $userInfo->avatar; ?>" alt="">
-            </div>
+            <?php if (isset($userInfo)) : ?>
+              <div class="user_avatar">
+                <img id="avatarImg" src="<?= base_url() . $userInfo->avatar; ?>" alt="">
+              </div>
+            <?php endif; ?>
             <span class="user_name" data-bs-placement="bottom" data-bs-toggle="tooltip" data-bs-title="Tài khoản"><?= $this->session->userdata("username") ?></span>
           </div>
 

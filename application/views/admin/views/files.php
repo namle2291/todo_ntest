@@ -6,6 +6,7 @@
 
     .file-image img {
         width: 100%;
+
         height: 100%;
         /* object-fit: cover; */
     }
@@ -235,7 +236,7 @@ $project_id_url = $this->uri->segment(4);
                     <div class="col-8 border-end">
                         <div class="image-preview-modal">
                             <img src="" class="image-preview" alt="image-preview">
-                        </div>
+                        </div>  
                     </div>
                     <div class="col-4">
                         <div class="image-info">

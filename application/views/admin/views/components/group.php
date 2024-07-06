@@ -42,7 +42,7 @@ $meta = isset($meta) ? $meta : "";
                     <?php if (count($group_owners) > 3) : ?>
                         <div class="d-flex align-items-center justify-content-center" style="width: 35px; height: 35px; border-radius:50%; background-color: #B9B9B9;">
                             <strong>
-                                <?= "+" . count($group_owners) - 3 ?>
+                                <?= "+" . (count($group_owners) - 3) ?>
                             </strong>
                         </div>
                     <?php endif; ?>

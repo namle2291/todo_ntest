@@ -21,11 +21,11 @@
             <tbody>
                 <?php foreach ($html_types as $html_type) : ?>
                     <tr>
-                        <td><?= $html_type->id ?></td>
-                        <td><?= $html_type->title ?></td>
-                        <td><?= $html_type->value ?></td>
-                        <td><?= $html_type->color ?></td>
-                        <td><?= $html_type->created_at ?></td>
+                        <td><?= isset($html_type->id) ? $html_type->id : "" ?></td>
+                        <td><?= isset($html_type->title) ? $html_type->title : "" ?></td>
+                        <td><?= isset($html_type->value) ? $html_type->value : "" ?></td>
+                        <td><?= isset($html_type->color) ? $html_type->color : "" ?></td>
+                        <td><?= isset($html_type->created_at) ? $html_type->created_at : "" ?></td>
                         <td>
                             <button class="edit_btn btn btn-sm btn-outline-warning" data-id="<?= $html_type->id ?>"><i class="fa fa-pencil" aria-hidden="true"></i></button>
                             <button onclick="return confirm('Xóa?')" class="delete_btn btn btn-sm btn-outline-danger" data-id="<?= $html_type->id ?>"><i class="fa fa-trash" aria-hidden="true"></i></button>
