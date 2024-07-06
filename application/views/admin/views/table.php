@@ -1698,6 +1698,8 @@ $type_html = base_url() . "input/gettypehtml";
                 view_type: "table",
             }
 
+            console.log(payload);
+
             switch (type) {
                 case 'status':
                     payload.group_id = group_id;
@@ -1757,34 +1759,88 @@ $type_html = base_url() . "input/gettypehtml";
                     break;
                     // Xử lý select là xác nhận của lãnh đạo
                 case 'confirm':
-                    if (status_select.val() !== 'chuabatdau|secondary|Chưa bắt đầu') {
 
-                        if ($('#performance-review-modal').length > 0) {
-                            $('#performance-review-modal').remove();
-                        }
+                    payload.group_id = group_id;
+                    payload.type = "confirm";
+                    payload.project_id = <?= $project->id ?>;
+                    payload.item_id = item_id;
 
-                        $.ajax({
-                            url: "<?= base_url() ?>confirm/show_review_modal",
-                            method: "get",
-                            data: {
-                                item_id: item_id,
-                            },
-                            dataType: "json",
-                            success: function(res) {
-                                if (res.success) {
-                                    $('.main-content').append(res.data);
+                    $.ajax({
+                        url: "<?= base_url() ?>admin/items/update_meta",
+                        method: "post",
+                        data: payload,
+                        dataType: "json",
+                        success: function(response) {
+                            if (response.success) {
+                                switch (type) {
+                                    case "confirm":
+                                        const bg_old = status_select.attr("data-bg-color");
+                                        const bg_color = status_select.val().split("|")[1];
 
-                                    const performance_review_modal = new bootstrap.Modal('#performance-review-modal');
-                                    performance_review_modal.show();
+                                        status_select.removeClass(bg_old);
+                                        status_select.addClass("bg-" + bg_color);
+                                        status_select.attr("data-bg-color", "bg-" + bg_color);
 
-                                } else {
-                                    toastr.error(res.message);
-                                    confirm_select_el.val(previousConfirmValue);
+                                        $(`.progress-group[data-group-id='${group_id}']`).html(response.progress_html)
+                                        $('[data-bs-toggle="tooltip"]').tooltip();
+                                        break;
+                                    default:
+                                        break;
                                 }
+
+                                toastr.success("Cập nhật dữ liệu thành công!");
+                            } else {
+                                for (let i = 0; i < response.dependent_items.length; i++) {
+                                    const {
+                                        title,
+                                        id
+                                    } = response.dependent_items[i];
+
+                                    toastr.warning(title + " phải hoàn thành trước", '', {
+                                        timeOut: 10000
+                                    }).click(function() {
+                                        let item_focus = $('.sort-item .task-item[data-item-id="' + id + '"]');
+                                        item_focus.css('border', '1px solid red');
+                                        item_focus.addClass('shake');
+                                        setTimeout(function() {
+                                            item_focus.css('border', '');
+                                            item_focus.removeClass('shake');
+                                        }, 5000);
+                                    });
+                                }
+                                status_select.val(previousStatusValue);
                             }
 
-                        });
-                    }
+                        }
+                    });
+
+                    // if (status_select.val() !== 'chuabatdau|secondary|Chưa bắt đầu') {
+
+                    //     if ($('#performance-review-modal').length > 0) {
+                    //         $('#performance-review-modal').remove();
+                    //     }
+
+                    //     $.ajax({
+                    //         url: "<?= base_url() ?>confirm/show_review_modal",
+                    //         method: "get",
+                    //         data: {
+                    //             item_id: item_id,
+                    //         },
+                    //         dataType: "json",
+                    //         success: function(res) {
+                    //             if (res.success) {
+                    //                 $('.main-content').append(res.data);
+
+                    //                 const performance_review_modal = new bootstrap.Modal('#performance-review-modal');
+                    //                 performance_review_modal.show();
+
+                    //             } else {
+                    //                 toastr.error(res.message);
+                    //                 confirm_select_el.val(previousConfirmValue);
+                    //             }
+                    //         }
+                    //     });
+                    // }
                     break;
                 case 'connettable':
                     $.ajax({

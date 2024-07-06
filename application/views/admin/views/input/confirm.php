@@ -14,7 +14,7 @@ $options = [
 ?>
     
 <div class="input-group input-group-table">
-    <select data-item-id="<?= $data_id ?>" <?= $value != '' ? "disabled" : "" ?> data-id="<?= $meta_id ?>" data-type="confirm" data-group-id="<?= $group->id ?>" name="<?= $key ?>" style="width: <?= $width ?>" class="confirm_select form-select form-select-sm bg-gradient <?= $value != '' ? "text-light" : "" ?> bg-<?= explode("|", $value)[1] ?>" data-bg-color="bg-<?= explode("|", $value)[1] ?>">
+    <select data-item-id="<?= $data_id ?>" data-id="<?= $meta_id ?>" data-type="confirm" data-group-id="<?= $group->id ?>" name="<?= $key ?>" style="width: <?= $width ?>" class="confirm_select form-select form-select-sm bg-gradient <?= $value != '' ? "text-light" : "" ?> bg-<?= explode("|", $value)[1] ?>" data-bg-color="bg-<?= explode("|", $value)[1] ?>">
         <?php foreach ($options as $key => $option) : ?>
             <option <?= explode("|", $key)[0]  == explode("|", $value)[0]  ? "selected = 'selected'" : "" ?> value="<?= $key  ?>|<?= $option[0]  ?>" class="bg-<?= $option[1] ?> p-1 text-white"><?= $option[0] ?></option>
         <?php endforeach; ?>
