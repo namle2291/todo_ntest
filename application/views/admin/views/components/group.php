@@ -52,9 +52,9 @@ $meta = isset($meta) ? $meta : "";
                     + Thành viên
                 </button>
 
-                <button type="button" class="btn btn-sm btn-outline-secondary btn-add-member" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddMember<?= $group->id ?>" aria-controls="offcanvasAddMember<?= $group->id ?>">
+                <!-- <button type="button" class="btn btn-sm btn-outline-secondary btn-add-member" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddMember<?= $group->id ?>" aria-controls="offcanvasAddMember<?= $group->id ?>">
                     + Thiết lập
-                </button>
+                </button> -->
 
                 <!-- link zalo -->
                 <a style="line-height: 26px;" class="btn btn-sm btn-outline-secondary" href="<?= isset($meta->value) ? $meta->value :  "" ?>" data-group-id="<?= $group->id ?>" data-meta-id="<?=  isset($meta->id) ? $meta->id :  "" ?>" target="_blank" <?= !empty($meta->value) ? "" : "hidden" ?>>

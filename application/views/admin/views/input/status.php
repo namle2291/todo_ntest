@@ -30,11 +30,14 @@ $options = [
     $(document).ready(function() {
         $('.status_select[data-item-id="<?= $data_id ?>"]').click(function(e) {
             var date = $(this).parents(".task-item").find('input[type="date"]').val();
+            
             if (date === '') {
+
                 toastr.warning("Vui lòng cập nhật ngày trước khi hoàn thành công việc !");
 
                 $(this).parents(".task-item").find('input[type="date"]').focus();
                 e.stopImmediatePropagation();
+                
             }
         });
     });
