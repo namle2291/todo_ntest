@@ -19,7 +19,7 @@ if ($fields->values == '') {
 ?>
     <div class="input-group input-group-table priority-input">
         <a id="<?= "priority" . $meta_id; ?>" tabindex="0" class="btn btn-<?= $class; ?> table-item connect-table-item" data-bs-toggle="popover" role="button" style="width:100%;height:35px;">
-            <?= $options[$value][0]; ?>
+            <?= isset($options[$value][0]) ? $options[$value][0] : ""; ?>
         </a>
 
         <div hidden>
