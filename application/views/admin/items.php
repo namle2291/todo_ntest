@@ -30,7 +30,7 @@
                                     <div class="card">
                                         <img src="https://cdn.monday.com/images/quick_search_recent_board.svg" class="card-img-top" alt="...">
                                         <div class="card-body">
-                                            <h5 class="card-title text-sm"><?= $child->title; ?></h5>
+                                            <h5 class="card-title text-truncate text-sm"><?= $child->title; ?></h5>
                                         </div>
                                     </div>
                                 </a>
@@ -42,7 +42,7 @@
                                 <div class="card">
                                     <img src="https://cdn.monday.com/images/quick_search_recent_board.svg" class="card-img-top" alt="...">
                                     <div class="card-body">
-                                        <h5 class="card-title text-sm"><?= $item->title; ?></h5>
+                                        <h5 class="card-title text-truncate text-sm"><?= $item->title; ?></h5>
                                     </div>
                                 </div>
                             </a>
@@ -53,7 +53,7 @@
                                 <div class="card">
                                     <img src="https://cdn.monday.com/images/quick_search_recent_board.svg" class="card-img-top" alt="...">
                                     <div class="card-body">
-                                        <h5 class="card-title text-sm"><?= $item->title; ?></h5>
+                                        <h5 class="card-title text-truncate text-sm"><?= $item->title; ?></h5>
                                     </div>
                                 </div>
                             </a>
@@ -64,7 +64,7 @@
                                 <div class="card">
                                     <img src="https://cdn.monday.com/images/quick_search_recent_board.svg" class="card-img-top" alt="...">
                                     <div class="card-body">
-                                        <h5 class="card-title text-sm"><?= $item->title; ?></h5>
+                                        <h5 class="card-title text-truncate text-sm"><?= $item->title; ?></h5>
                                     </div>
                                 </div>
                             </a>
